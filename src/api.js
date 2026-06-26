@@ -33,3 +33,21 @@ export async function bookTicket(ticketId, customerData) {
   if (!res.ok) throw new Error("Failed to book ticket");
   return res.json();
 }
+
+export async function pinLogin(employeeId, pin) {
+  const res = await fetch(`${API}/auth/pin_login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ employee_id: employeeId, pin: pin }),
+  });
+  if (!res.ok) throw new Error("Invalid employee ID or PIN");
+  return res.json();
+}
+
+export function authHeaders() {
+  const token = sessionStorage.getItem("register_token");
+  return {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+}
