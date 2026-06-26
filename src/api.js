@@ -27,7 +27,7 @@ export async function fetchTickets(screeningId) {
 export async function bookTicket(ticketId, customerData) {
   const res = await fetch(`${API}/tickets/${ticketId}/book`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: authHeaders(),
     body: JSON.stringify(customerData),
   });
   if (!res.ok) throw new Error("Failed to book ticket");
